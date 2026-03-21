@@ -1,0 +1,208 @@
+opencollection: 1.0.0
+info:
+  name: maternity-registrations-api
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ''
+      port: ''
+      auth:
+        username: ''
+        password: ''
+      bypassProxy: ''
+items:
+  - info:
+      name: reservation-slots
+      type: folder
+      seq: 1
+    request:
+      headers:
+        - name: Authorization
+          value: Bearer srncik
+      auth: inherit
+    items:
+      - info:
+          name: Create reservation-slot
+          type: http
+          seq: 1
+        http:
+          method: POST
+          url: http://localhost:3000/reservation-slots
+          headers:
+            - name: Content-Type
+              value: application/json
+          body:
+            type: json
+            data: |-
+              { 
+                "date": "2026-05-26", 
+                "slotsPerDay": 2,
+                "availableFrom": "2026-05-02T12:00:00.000Z"
+              }
+          auth: inherit
+        settings:
+          encodeUrl: true
+          timeout: 0
+          followRedirects: true
+          maxRedirects: 5
+      - info:
+          name: Create BULK reservation-slots
+          type: http
+          seq: 2
+        http:
+          method: POST
+          url: http://localhost:3000/reservation-slots/bulk
+          headers:
+            - name: Content-Type
+              value: application/json
+          body:
+            type: json
+            data: |-
+              [
+                { 
+                  "date": "2026-04-26", 
+                  "slotsPerDay": 4,
+                  "availableFrom": "2026-03-02T12:00:00.000Z"
+                },
+                { 
+                  "date": "2026-04-27", 
+                  "slotsPerDay": 4,
+                  "availableFrom": "2026-03-02T12:00:00.000Z"
+                },
+                { 
+                  "date": "2026-04-28", 
+                  "slotsPerDay": 6,
+                  "availableFrom": "2026-03-02T12:00:00.000Z"
+                }
+              ]
+          auth: inherit
+        settings:
+          encodeUrl: true
+          timeout: 0
+          followRedirects: true
+          maxRedirects: 5
+      - info:
+          name: Get reservation-slots for day
+          type: http
+          seq: 3
+        http:
+          method: GET
+          url: http://localhost:3000/reservation-slots?year=2026&month=4
+          params:
+            - name: year
+              value: '2026'
+              type: query
+            - name: month
+              value: '4'
+              type: query
+            - name: day
+              value: '27'
+              type: query
+              disabled: true
+          auth: inherit
+        settings:
+          encodeUrl: true
+          timeout: 0
+          followRedirects: true
+          maxRedirects: 5
+      - info:
+          name: Get reservation-slots for date
+          type: http
+          seq: 4
+        http:
+          method: GET
+          url: http://localhost:3000/reservation-slots?date=2026-05-02
+          params:
+            - name: date
+              value: '2026-05-02'
+              type: query
+          auth: inherit
+        settings:
+          encodeUrl: true
+          timeout: 0
+          followRedirects: true
+          maxRedirects: 5
+      - info:
+          name: Get reservation-slots for month
+          type: http
+          seq: 5
+        http:
+          method: GET
+          url: http://localhost:3000/reservation-slots?year=2026&month=5
+          params:
+            - name: year
+              value: '2026'
+              type: query
+            - name: month
+              value: '5'
+              type: query
+          auth: inherit
+        settings:
+          encodeUrl: true
+          timeout: 0
+          followRedirects: true
+          maxRedirects: 5
+  - info:
+      name: registrations
+      type: folder
+      seq: 1
+    request:
+      headers:
+        - name: Authorization
+          value: Bearer srncik
+      auth: inherit
+    items:
+      - info:
+          name: Get registrations
+          type: http
+          seq: 1
+        http:
+          method: GET
+          url: http://localhost:3000/registrations
+          params:
+            - name: assignedDate
+              value: '2026-05-28'
+              type: query
+              disabled: true
+          auth: inherit
+        settings:
+          encodeUrl: true
+          timeout: 0
+          followRedirects: true
+          maxRedirects: 5
+      - info:
+          name: Create registration
+          type: http
+          seq: 2
+        http:
+          method: POST
+          url: http://localhost:3000/registrations
+          headers:
+            - name: Content-Type
+              value: application/json
+          body:
+            type: json
+            data: |-
+              {
+                "name": "tehulka1",
+                "surname": "tester",
+                "phone": "123456789",
+                "email": "tehulka1@tester.com",
+                "plannedDate": "2026-05-28"
+              }
+          auth: inherit
+        settings:
+          encodeUrl: true
+          timeout: 0
+          followRedirects: true
+          maxRedirects: 5
+bundled: true
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
+    exportedAt: '2026-03-25T15:34:59.244Z'
+    exportedUsing: Bruno

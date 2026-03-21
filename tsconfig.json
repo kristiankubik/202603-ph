@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "types": ["node"],
+        "resolvePackageJsonExports": true,
+        "esModuleInterop": true,
+        "isolatedModules": true,
+        "declaration": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "outDir": "./dist",
+        "incremental": true,
+        "skipLibCheck": true,
+        // "strictNullChecks": true, //strict
+        "forceConsistentCasingInFileNames": true,
+        // "noImplicitAny": true, //strict
+        // "strictBindCallApply": true, //strict
+        "noFallthroughCasesInSwitch": true
+    }
+}

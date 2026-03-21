@@ -1,0 +1,46 @@
+generator client {
+    provider = "prisma-client"
+    output = "./generated"
+    moduleFormat = "esm"
+}
+
+datasource db {
+    provider = "sqlite"
+}
+
+// One slot record per calendar day.
+model ReservationSlot {
+    id Int @id @default(autoincrement())
+    date DateTime // midnight UTC for the calendar day
+    totalCapacity Int
+    usedCapacity  Int @default(0)
+    createdAt DateTime @default(now())
+    availableFrom DateTime
+    reservations Reservation[]
+
+    @@unique([date])
+}
+
+// A patient's registration request.
+model Registration {
+    id Int @id @default(autoincrement())
+    name String
+    surname String
+    phone String
+    email String
+    plannedDate DateTime // the date the patient wants
+    createdAt DateTime @default(now())
+    reservation Reservation?
+}
+
+// Links a registration to a reservationSlot (or marks it as denied).
+model Reservation {
+    id Int @id @default(autoincrement())
+    status String // "CREATED" | "DENIED"
+    assignedDate DateTime? // actual date assigned (may differ from plannedDate)
+    registrationId Int @unique
+    registration Registration @relation(fields: [registrationId], references: [id])
+    reservationSlotId Int?
+    reservationSlot ReservationSlot? @relation(fields: [reservationSlotId], references: [id])
+    createdAt DateTime @default(now())
+}
